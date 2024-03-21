@@ -1,0 +1,67 @@
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity = "center"
+    android:orientation="vertical">
+
+    <!-- EditText -->
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Choose a Language"
+        android:layout_marginBottom="16dp"
+        android:inputType="none" />
+
+    <RadioGroup
+        android:id="@+id/options_radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/option1_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="English"
+            android:tag="en-US" />
+
+        <RadioButton
+            android:id="@+id/option2_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Spanish"
+            android:tag="es-ES" />
+
+        <RadioButton
+            android:id="@+id/option3_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Italian"
+            android:tag="it-IT" />
+
+        <RadioButton
+            android:id="@+id/option4_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Russian"
+            android:tag="ru-RU" />
+
+        <RadioButton
+            android:id="@+id/option5_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="German"
+            android:tag="de-DE" />
+    </RadioGroup>
+
+    <!--
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />-->
+
+</LinearLayout>
