@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">JonathanThomasSpringBreakChooser</string>
+    <string name="location1">New York City</string>
+    <string name="location2">Miami</string>
+    <string name="location3">Barcelona</string>
+    <string name="location4">Malaga</string>
+    <string name="location5">Florence</string>
+    <string name="location6">Naples</string>
+
 </resources>

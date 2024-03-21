@@ -42,26 +42,13 @@
             android:text="Italian"
             android:tag="it-IT" />
 
-        <RadioButton
-            android:id="@+id/option4_radio_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Russian"
-            android:tag="ru-RU" />
-
-        <RadioButton
-            android:id="@+id/option5_radio_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="German"
-            android:tag="de-DE" />
     </RadioGroup>
 
-    <!--
+
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />-->
+        android:text="Button" />
 
 </LinearLayout>
