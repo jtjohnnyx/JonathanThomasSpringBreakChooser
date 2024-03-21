@@ -26,6 +26,7 @@ import kotlin.math.sqrt
 
 import kotlin.random.Random
 
+// spring break locations as coordinates
 private val locations = listOf(
     Location(R.string.location1, 40.748817, -73.985428, "en-US"),
     Location(R.string.location2, 34.008360, -118.498759, "en-US"),
@@ -37,28 +38,35 @@ private val locations = listOf(
 
 class MainActivity : AppCompatActivity() {
 
+    // for listening to user's voice
     private lateinit var speechRecognizer: SpeechRecognizer
 
+    // for holding the current language
     private var lang = ""
     private var temp = ""
 
+    // for detecting vigorous shaking
     private var sensorManager: SensorManager? = null
     private var acceleration = 0f
     private var currentAcceleration = 0f
     private var lastAcceleration = 0f
 
+    // for greeting the user
     private lateinit var textToSpeech: TextToSpeech
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val button = findViewById<Button>(R.id.button)
+        // initialise views
+        //val button = findViewById<Button>(R.id.button) //for testing purposes
         val radioGroup = findViewById<RadioGroup>(R.id.options_radio_group)
         val text = findViewById<EditText>(R.id.editText)
 
+        // even though you disable the list options, it may still be called; ultimately locks it
         var lock = false
 
+        // for testing speech
 //        if (!SpeechRecognizer.isRecognitionAvailable(this)) {
 //            // Speech recognition service NOT available
 //            Log.d("ERRS", "what")
@@ -66,6 +74,7 @@ class MainActivity : AppCompatActivity() {
 //        } else
 //            Log.d("ERRS", "okay")
 
+        // initialise text to speech
         textToSpeech = TextToSpeech(this) {status ->
             if (status == TextToSpeech.SUCCESS){
                 Log.d("ERRS", "Initialization Success")
@@ -74,6 +83,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // initialises the accelerometer tracking
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
         Objects.requireNonNull(sensorManager)!!
@@ -112,6 +122,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onError(e: Int) {
+                // if network error or no speech detected; not exhaustive :(
                 if (e== 2 || e == 7) {
                     Toast.makeText(applicationContext, "Timed out. No speech detected", Toast.LENGTH_SHORT).show()
                     text.text.clear()
@@ -137,9 +148,6 @@ class MainActivity : AppCompatActivity() {
                 speechRecognizer.cancel()
                 enableRadioGroup(radioGroup)
 
-//                lock = true
-//                radioGroup.clearCheck()
-//                lock = false
                 Log.d("ERRS", "$data")
 
             }
@@ -157,18 +165,20 @@ class MainActivity : AppCompatActivity() {
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             if (!lock) {
                 val selectedRadioButton = findViewById<RadioButton>(checkedId)
+                lang = ""
                 temp = selectedRadioButton.tag.toString()
                 disableRadioGroup(radioGroup)
                 startListening(temp)
-                //Log.d("ERRS", "changed")
+                Log.d("ERRS", "changed")
             }
         }
 
 
-        button.setOnClickListener() {
-            lock = true
-            radioGroup.clearCheck()
-            lock = false
+        // button for testing
+//        button.setOnClickListener() {
+//            lock = true
+//            radioGroup.clearCheck()
+//            lock = false
 
 //            val packageManager = this.packageManager
 //            val intent = packageManager.getLaunchIntentForPackage("com.google.android.apps.maps")
@@ -188,9 +198,9 @@ class MainActivity : AppCompatActivity() {
 //            mapIntent.setPackage("com.google.android.apps.maps")
 //
 //            startActivity(mapIntent)
-            //openMap(lang)
-            speak(lang)
-        }
+//            openMap(lang)
+//            speak(lang)
+//        }
 
 
     }
@@ -255,10 +265,9 @@ class MainActivity : AppCompatActivity() {
             val delta: Float = currentAcceleration - lastAcceleration
             acceleration = acceleration * 0.7f + delta
 
-            // Display a Toast message if
-            // acceleration value is over 12
             if (acceleration > 7) {
-                Toast.makeText(applicationContext, "Taking you to your spring break!", Toast.LENGTH_SHORT).show()
+                if (lang != "")
+                    Toast.makeText(applicationContext, "Taking you to your spring break!", Toast.LENGTH_SHORT).show()
                 speak(lang)
                 openMap(lang)
 
